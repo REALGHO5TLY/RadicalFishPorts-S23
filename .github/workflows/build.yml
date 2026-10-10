@@ -1,64 +1,54 @@
-name: Build S23 Ultra APK
+name: Build RadicalFish S23
 on:
-  workflow_dispatch:
   push:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
-      - name: Download upstream source
+      - name: Checkout upstream source
         uses: actions/checkout@v4
         with:
           repository: moronigranja/alabaster-android
+          ref: main
           path: source
-      - name: Apply S23 controls patch
-        shell: bash
+      - name: Patch S23 touch opacity safely
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p=Path('source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt')
           s=p.read_text()
-          marker='    /** Fired on every commit (DONE, detach, background), so the Activity can persist the layout. */'
-          assert marker in s, 'Touch control API changed upstream'
-          s=s.replace(marker,'''    /** Adjustable visual opacity without changing hit targets. */
-              var controlsOpacity: Float = 0.72f
-                  set(value) {
-                      field = value.coerceIn(0.20f, 1.0f)
-                      invalidate()
-                  }
-
-          '''.replace('              ','    ')+marker,1)
-          marker='        if (drawn || model.editing) {'
-          assert marker in s
-          s=s.replace(marker,marker+'''
-                      val s23Layer = canvas.saveLayerAlpha(
-                          0f, 0f, width.toFloat(), height.toFloat(),
-                          ((if (model.editing) 1f else controlsOpacity) * 255f).toInt()
-                      )'''.replace('                      ','            '),1)
-          marker='            drawControlPill(canvas, OnScreenPadModel.HOME, "HOME")'
-          assert marker in s
-          s=s.replace(marker,marker+'\n            canvas.restoreToCount(s23Layer)',1)
+          needle='    /** Fired on every commit (DONE, detach, background), so the Activity can persist the layout. */'
+          assert needle in s, 'Upstream source changed: missing insertion marker'
+          s=s.replace(needle, '    var controlsOpacity: Float = 0.75f\n        set(value) { field = value.coerceIn(0.20f, 1.0f); invalidate() }\n\n'+needle,1)
+          begin='        if (drawn || model.editing) {'
+          assert begin in s
+          s=s.replace(begin,begin+'\n            val s23Layer = canvas.saveLayerAlpha(0f, 0f, width.toFloat(), height.toFloat(), ((if (model.editing) 1f else controlsOpacity) * 255f).toInt())',1)
+          end='            drawControlPill(canvas, OnScreenPadModel.HOME, "HOME")'
+          assert end in s
+          s=s.replace(end,end+'\n            canvas.restoreToCount(s23Layer)',1)
           p.write_text(s)
+          print('S23 patch applied; Kotlin indentation preserved')
           PY
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Install Android SDK
+      - name: Install SDK
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
-      - name: Build APK
+      - name: Compile debug APK and run tests
         working-directory: source/android
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace
-      - name: Upload installable APK
+          ./gradlew :app:assembleDebug :app:testDebugUnitTest --no-daemon --stacktrace
+      - name: Publish APK
         uses: actions/upload-artifact@v4
         with:
-          name: RadicalFishPorts-S23-APK
-          path: source/android/app/build/outputs/apk/debug/app-debug.apk
+          name: RadicalFish-S23-debug
+          path: source/android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
