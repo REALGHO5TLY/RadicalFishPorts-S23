@@ -1,0 +1,64 @@
+name: Build S23 Ultra APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Download upstream source
+        uses: actions/checkout@v4
+        with:
+          repository: moronigranja/alabaster-android
+          path: source
+      - name: Apply S23 controls patch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt')
+          s=p.read_text()
+          marker='    /** Fired on every commit (DONE, detach, background), so the Activity can persist the layout. */'
+          assert marker in s, 'Touch control API changed upstream'
+          s=s.replace(marker,'''    /** Adjustable visual opacity without changing hit targets. */
+              var controlsOpacity: Float = 0.72f
+                  set(value) {
+                      field = value.coerceIn(0.20f, 1.0f)
+                      invalidate()
+                  }
+
+          '''.replace('              ','    ')+marker,1)
+          marker='        if (drawn || model.editing) {'
+          assert marker in s
+          s=s.replace(marker,marker+'''
+                      val s23Layer = canvas.saveLayerAlpha(
+                          0f, 0f, width.toFloat(), height.toFloat(),
+                          ((if (model.editing) 1f else controlsOpacity) * 255f).toInt()
+                      )'''.replace('                      ','            '),1)
+          marker='            drawControlPill(canvas, OnScreenPadModel.HOME, "HOME")'
+          assert marker in s
+          s=s.replace(marker,marker+'\n            canvas.restoreToCount(s23Layer)',1)
+          p.write_text(s)
+          PY
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - name: Build APK
+        working-directory: source/android
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Upload installable APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RadicalFishPorts-S23-APK
+          path: source/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
