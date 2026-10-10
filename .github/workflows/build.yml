@@ -32,6 +32,17 @@ jobs:
           mkdir -p build-diagnostics
           find source/android/app/src -type f | sort > build-diagnostics/source-files.txt
           find source/android/app/src -type f \( -name "*.kt" -o -name "*.java" -o -name "*.xml" \) -print0 | xargs -0 -r grep -nEi "HIDE|EDIT|fullscreen|immersive|stretch|fit|fill|overlay|control|surface|aspect" | head -n 300 > build-diagnostics/ui-matches.txt || true
+      - name: Export editable UI source
+        shell: bash
+        run: |
+          mkdir -p ui-source
+          cp source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/{OnScreenPadModel.kt,OnScreenPadView.kt,PortActivity.kt} ui-source/
+          cp source/android/app/src/main/assets/ada-shim.js ui-source/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ui-source
+          git commit -m 'Expose editable UI source for movable menu controls' || true
+          git push origin HEAD:main || true
       - name: Apply S23 fullscreen and control fixes
         shell: bash
         run: python3 tools/patch_s23_ui.py
