@@ -25,7 +25,7 @@ jobs:
             echo "ZIP identification:"
             file RadicalFish_S23_Fullscreen_Modes_Source.zip
             echo "ZIP file listing:"
-            unzip -Z1 RadicalFish_S23_Fullscreen_Modes_Source.zip | head -n 35
+            unzip -Z1 RadicalFish_S23_Fullscreen_Modes_Source.zip | sed -n '1,35p'
             echo "ZIP integrity:"
             unzip -tq RadicalFish_S23_Fullscreen_Modes_Source.zip
             mkdir -p source
