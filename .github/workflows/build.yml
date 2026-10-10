@@ -1,54 +1,44 @@
-name: Build RadicalFish S23
+name: Build RadicalFish S23 Premium
 on:
   push:
     branches: [main]
+    paths:
+      - 'RadicalFish_S23_Fullscreen_Modes_Source.zip'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 60
     steps:
-      - name: Checkout upstream source
+      - name: Checkout S23 repository
         uses: actions/checkout@v4
-        with:
-          repository: moronigranja/alabaster-android
-          ref: main
-          path: source
-      - name: Patch S23 touch opacity safely
+      - name: Verify and unpack complete premium source
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p=Path('source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt')
-          s=p.read_text()
-          needle='    /** Fired on every commit (DONE, detach, background), so the Activity can persist the layout. */'
-          assert needle in s, 'Upstream source changed: missing insertion marker'
-          s=s.replace(needle, '    var controlsOpacity: Float = 0.75f\n        set(value) { field = value.coerceIn(0.20f, 1.0f); invalidate() }\n\n'+needle,1)
-          begin='        if (drawn || model.editing) {'
-          assert begin in s
-          s=s.replace(begin,begin+'\n            val s23Layer = canvas.saveLayerAlpha(0f, 0f, width.toFloat(), height.toFloat(), ((if (model.editing) 1f else controlsOpacity) * 255f).toInt())',1)
-          end='            drawControlPill(canvas, OnScreenPadModel.HOME, "HOME")'
-          assert end in s
-          s=s.replace(end,end+'\n            canvas.restoreToCount(s23Layer)',1)
-          p.write_text(s)
-          print('S23 patch applied; Kotlin indentation preserved')
-          PY
+          test -s RadicalFish_S23_Fullscreen_Modes_Source.zip || { echo "Upload RadicalFish_S23_Fullscreen_Modes_Source.zip to repository root first"; exit 1; }
+          unzip -t RadicalFish_S23_Fullscreen_Modes_Source.zip
+          mkdir -p source
+          unzip -q RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
+          test -f source/android/gradlew
+          test -f source/android/app/build.gradle.kts
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Install SDK
+      - name: Install Android SDK
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
-      - name: Compile debug APK and run tests
+      - name: Compile debug APK and run unit tests
         working-directory: source/android
         run: |
           chmod +x gradlew
           ./gradlew :app:assembleDebug :app:testDebugUnitTest --no-daemon --stacktrace
-      - name: Publish APK
+      - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: RadicalFish-S23-debug
+          name: RadicalFish-S23-Premium-debug
           path: source/android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
