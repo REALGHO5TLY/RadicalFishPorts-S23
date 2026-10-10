@@ -21,6 +21,10 @@ jobs:
           unzip -t RadicalFish_S23_Fullscreen_Modes_Source.zip
           mkdir -p source
           unzip -q RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
+          echo 'Unpacked top-level files:'
+          ls -la source
+          echo 'Android files:'
+          ls -la source/android || true
           test -f source/android/gradlew
           test -f source/android/app/build.gradle.kts
       - uses: actions/setup-java@v4
@@ -43,7 +47,7 @@ jobs:
           if [ -f android-build.log ]; then
             tail -n 500 android-build.log > build-diagnostics/latest.txt
           else
-            printf 'Build failed before Gradle started. Check workflow run logs.\n' > build-diagnostics/latest.txt
+            printf 'Build failed before Gradle started. Inspect verification step and ZIP structure.\n' > build-diagnostics/latest.txt
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
