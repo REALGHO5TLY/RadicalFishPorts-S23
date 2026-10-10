@@ -5,6 +5,7 @@ on:
     paths:
       - 'RadicalFish_S23_Fullscreen_Modes_Source.zip'
       - '.github/workflows/build.yml'
+      - 'tools/patch_s23_ui.py'
   workflow_dispatch:
 
 permissions:
