@@ -43,7 +43,12 @@ jobs:
           java-version: '17'
       - uses: android-actions/setup-android@v3
       - name: Install Android SDK
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        shell: bash
+        run: |
+          set -o pipefail
+          echo "SDK manager: $(command -v sdkmanager)" | tee "$GITHUB_WORKSPACE/sdk-setup.log"
+          yes | sdkmanager --licenses 2>&1 | tee -a "$GITHUB_WORKSPACE/sdk-setup.log" || true
+          sdkmanager "platforms;android-36" "build-tools;36.0.0" 2>&1 | tee -a "$GITHUB_WORKSPACE/sdk-setup.log"
       - name: Compile debug APK and run unit tests
         working-directory: source/android
         run: |
@@ -58,6 +63,10 @@ jobs:
             cat preparation.log > build-diagnostics/latest.txt
           else
             printf 'Preparation step did not run.\\n' > build-diagnostics/latest.txt
+          fi
+          if [ -f sdk-setup.log ]; then
+            echo "=== SDK setup ===" >> build-diagnostics/latest.txt
+            cat sdk-setup.log >> build-diagnostics/latest.txt
           fi
           if [ -f android-build.log ]; then
             tail -n 500 android-build.log >> build-diagnostics/latest.txt
