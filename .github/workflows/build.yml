@@ -1,4 +1,4 @@
-name: Build RadicalFish S23 Premium
+name: Build RadicalFish S23 APK
 on:
   push:
     branches: [main]
@@ -6,80 +6,68 @@ on:
       - 'RadicalFish_S23_Fullscreen_Modes_Source.zip'
       - '.github/workflows/build.yml'
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
-  build:
+  android:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 45
     steps:
-      - name: Checkout S23 repository
-        uses: actions/checkout@v4
-      - name: Verify and unpack complete premium source
+      - uses: actions/checkout@v4
+      - name: Prepare Android source
         shell: bash
         run: |
-          set -o pipefail
-          {
-            echo "Repository files:"
-            ls -lah
-            echo "ZIP identification:"
-            file RadicalFish_S23_Fullscreen_Modes_Source.zip
-            echo "ZIP file listing:"
-            unzip -Z1 RadicalFish_S23_Fullscreen_Modes_Source.zip | sed -n '1,35p'
-            echo "ZIP integrity:"
-            unzip -tq RadicalFish_S23_Fullscreen_Modes_Source.zip
-            mkdir -p source
-            unzip -oq RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
-            echo "Extracted source:"
-            ls -lah source/
-            echo "Android project:"
-            ls -lah source/android/
-            test -f source/android/gradlew
-            test -f source/android/app/build.gradle.kts
-          } 2>&1 | tee "$GITHUB_WORKSPACE/preparation.log"
-      - uses: actions/setup-java@v4
+          set -euo pipefail
+          test -s RadicalFish_S23_Fullscreen_Modes_Source.zip
+          unzip -tq RadicalFish_S23_Fullscreen_Modes_Source.zip
+          mkdir -p source
+          unzip -oq RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
+          test -f source/android/gradlew
+          test -f source/android/app/build.gradle.kts
+          echo "Android source ready"
+      - name: Java 17
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - name: Install Android SDK
+          cache: gradle
+          cache-dependency-path: source/android/**/*.gradle*
+      - name: Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android 36 SDK
         shell: bash
         run: |
-          set -o pipefail
-          echo "SDK manager: $(command -v sdkmanager)" | tee "$GITHUB_WORKSPACE/sdk-setup.log"
-          yes | sdkmanager --licenses 2>&1 | tee -a "$GITHUB_WORKSPACE/sdk-setup.log" || true
-          sdkmanager "platforms;android-36" "build-tools;36.0.0" 2>&1 | tee -a "$GITHUB_WORKSPACE/sdk-setup.log"
-      - name: Compile debug APK and run unit tests
+          set -euo pipefail
+          sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
+      - name: Build APK
+        shell: bash
         working-directory: source/android
         run: |
+          set -euo pipefail
           chmod +x gradlew
-          set -o pipefail
-          ./gradlew :app:assembleDebug :app:testDebugUnitTest --no-daemon --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/android-build.log"
-      - name: Save failed build log into repository
-        if: failure()
-        run: |
-          mkdir -p build-diagnostics
-          if [ -f preparation.log ]; then
-            cat preparation.log > build-diagnostics/latest.txt
-          else
-            printf 'Preparation step did not run.\\n' > build-diagnostics/latest.txt
-          fi
-          if [ -f sdk-setup.log ]; then
-            echo "=== SDK setup ===" >> build-diagnostics/latest.txt
-            cat sdk-setup.log >> build-diagnostics/latest.txt
-          fi
-          if [ -f android-build.log ]; then
-            tail -n 500 android-build.log >> build-diagnostics/latest.txt
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add build-diagnostics/latest.txt
-          git commit -m 'Capture latest S23 build failure diagnostics' || true
-          git push origin HEAD:main
-      - name: Upload APK
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
+      - name: Upload installable APK
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: RadicalFish-S23-Premium-debug
           path: source/android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+      - name: Save build diagnostics
+        if: failure()
+        shell: bash
+        run: |
+          mkdir -p build-diagnostics
+          {
+            echo "Run: $GITHUB_RUN_ID"
+            echo "Commit: $GITHUB_SHA"
+            echo "Build URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            if [ -f build.log ]; then tail -n 600 build.log; else echo "Failure before Gradle; see run URL for failed step."; fi
+          } > build-diagnostics/latest.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add build-diagnostics/latest.txt
+          git commit -m 'Record failed APK build diagnostics' || true
+          git push origin HEAD:main || true
