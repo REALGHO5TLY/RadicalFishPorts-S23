@@ -1,0 +1,300 @@
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/LogFileTest.kt:67:            "the carry fills half the ring at most",
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GameProfileTest.kt:79:    fun `both engines offer the picture control, and each keeps its own saves subfolder`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderArraysTest.kt:70:        assertEquals("all nine edits matched", 9, served.applied)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderArraysTest.kt:130:            "and filled with the game's own five values, in its order",
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderArraysTest.kt:159:            assertEquals("$rel: the one edit", 1, served.applied)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:13: * A real controller crashed the app here (a D-pad index read out of bounds in the payload builder),
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:25:    fun `no controller seen yet means no pads`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:94:    fun `an enabled overlay alone reports a connected neutral pad`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:96:        state.setOverlayEnabled(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:109:    fun `an overlay press is a pressed button and releasing clears it`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:111:        state.setOverlayEnabled(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:112:        state.overlayButton(0, true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:114:        state.overlayButton(0, false)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:119:    fun `the overlay merges with a physical pad`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:121:        state.setOverlayEnabled(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:124:        state.overlayAxes(leftX = -0.9f, leftY = 0f, rightX = 0f, rightY = 0.3f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:129:        state.overlayButton(2, true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:136:    fun `a disabled overlay leaves no stuck state`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:138:        state.setOverlayEnabled(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:139:        state.overlayButton(0, true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:140:        state.overlayAxes(leftX = 1f, leftY = 0f, rightX = 0f, rightY = 0f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:141:        state.setOverlayEnabled(false)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:144:        state.setOverlayEnabled(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:151:    fun `a stray overlay event while disabled changes nothing`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:153:        state.setOverlayEnabled(false)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:154:        state.overlayButton(0, true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/GamepadStateTest.kt:155:        state.overlayAxes(leftX = 1f, leftY = 0f, rightX = 0f, rightY = 0f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/BarycentricKeepAliveTest.kt:50:                ShaderArrays.edits(rel).any { it.first == "precision mediump float;" && it.second == "precision highp float;" },
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:15: * and builds the water files out of the port's own edit table: what these tests check is the pipeline
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:59:             * `plane-depth` carry an edit for it, `water-fx-wall` only the define. */
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:63:        files["lib/water.glsl"] = ShaderArrays.edits(WATER_LIB).joinToString("\n") { it.first } + "\n"
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:98:        assertTrue("and filled with the game's own five values", text.contains("adaRamp[3] = rgb(184., 170., 132.);"))
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:119:        for ((find, replace) in ShaderArrays.edits(WATER_LIB)) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:138:        /* A run on the maintainer's phone found this: the single-line edits matched and the multi-line
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:152:        /* The lift edits the imported `lib/water.glsl`; if a copy of the game does not carry one of its
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderVariantsTest.kt:155:        val find = ShaderArrays.edits(WATER_LIB).first().first
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderSlotsTest.kt:102:    fun `a device at the GLES3 minimum gets a table that fits`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderSlotsTest.kt:104:        // one table plus the shaders' own uniforms fits the budget...
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/ShaderSlotsTest.kt:106:        // ...and gui.vert's two tables only fit because they are packed, which is what this asks for
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:12: * finger reaches the control it aimed at.
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:15: * single constant moved one row too far silently makes two controls fight over a pointer.
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:25:    fun `every control fits on screen and no two controls overlap`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:28:            for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:29:                assertInside(model.shape(control), width, height, "${width}x$height control $control")
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:32:            for (a in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:33:                for (b in a + 1 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:35:                        "controls $a and $b overlap at ${width}x$height",
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:174:    fun `a touch on a control presses it instead of starting a stick`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:215:    fun `the editor cannot grab a stick in dynamic mode`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:218:        assertEquals(OnScreenPadModel.LEFT_STICK, model.controlAt(stick.x, stick.y))
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:222:        assertEquals(OnScreenPadModel.NO_CONTROL, model.controlAt(x, y))
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:252:    fun `turning dynamic on drops a stick the editor had selected`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:258:        assertEquals(OnScreenPadModel.NO_CONTROL, model.selected)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:264:    fun `every control drives exactly its W3C index`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:282:        for ((control, index) in expected) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:284:            val shape = model.shape(control)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:285:            assertTrue("control $control claims its centre", model.down(1, shape.x, shape.y))
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:288:                    "control $control -> button $button",
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:321:    fun `a control holds one pointer`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:328:        assertTrue("the freed control can be claimed again", model.down(3, a.x, a.y))
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:369:    /* ------------------------------------------------------------------- layout editor ---- */
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:372:    fun `opening the editor releases a held control`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:396:        for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:397:            val a = fresh.shape(control)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:398:            val b = model.shape(control)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:399:            assertEquals("control $control x", a.x, b.x, 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:400:            assertEquals("control $control y", a.y, b.y, 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:401:            assertEquals("control $control radius", a.radius, b.radius, 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:402:            assertEquals("control $control halfWidth", a.halfWidth, b.halfWidth, 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:403:            assertEquals("control $control halfHeight", a.halfHeight, b.halfHeight, 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:408:    fun `dragging moves a control by the finger delta and stores the placed offset`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:431:    fun `dragging past an edge stops with the control inside the viewport`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:458:    fun `growing the pad scales every control but not the pill row`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:478:    fun `the handle sits at the selected control's corner and follows the selection`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:505:        // no EDIT pill while there is no pad on screen, and the tap target follows the pill
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:517:    fun `hiding the pad does not disturb the layout editor`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:519:        model.setEditing(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:527:    fun `the pill row exposes the four slots in edit mode and two in play mode`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:544:        model.setEditing(true)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:562:        for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/OnScreenPadModelTest.kt:563:            assertInside(model.shape(control), 800f, 600f, "800x600 control $control")
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:11: * whether a hand-edited file is read or ignored.
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:23:    fun `a moved and scaled control round-trips through the JSON`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:35:        for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:36:            assertEquals("offsetX $control", layout.offsetX[control], parsed.offsetX[control], 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:37:            assertEquals("offsetY $control", layout.offsetY[control], parsed.offsetY[control], 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:38:            assertEquals("scale $control", layout.scale[control], parsed.scale[control], 0.0001f)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:60:    fun `unknown names, unknown fields and a missing controls object are ignored`() {
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:62:            """{"version":1,"nope":3,"controls":{"bogus":{"dx":9},"face_a":{"dx":0.5,"zzz":1}}}"""
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:72:        val noControls = PadLayout.fromJson("""{"version":1,"global":2,"controls":5}""")
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:73:        assertNotNull(noControls)
+source/android/app/src/test/java/io/github/moronigranja/alabasterdawn/PadLayoutTest.kt:74:        assertEquals(2f, noControls!!.global, 0.0001f)
+source/android/app/src/main/AndroidManifest.xml:17:            android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen"
+source/android/app/src/main/res/drawable/ic_menu_fps.xml:7:        <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd"
+source/android/app/src/main/res/drawable/ic_menu_fps.xml:9:        <path android:fillColor="#FFFFFFFF"
+source/android/app/src/main/res/drawable/ic_play.xml:4:    <path android:fillColor="#FFFFFFFF" android:pathData="M340,220l360,260l-360,260z" />
+source/android/app/src/main/res/drawable/ic_menu_align_center.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M440-80v-168l-64 64-56-56 160-160 160 160-56 56-64-64v168h-80ZM160-440v-80h640v80H160Zm320-120L320-720l56-56 64 64v-168h80v168l64-64 56 56-160 160Z" />
+source/android/app/src/main/res/drawable/ic_menu_diagnostics.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M824-120 636-308q-41 32-90.5 50T440-240q-90 0-162.5-44T163-400h98q34 37 79.5 58.5T440-320q100 0 170-70t70-170q0-100-70-170t-170-70q-94 0-162.5 63.5T201-580h-80q8-127 99.5-213.5T440-880q134 0 227 93t93 227q0 56-18 105.5T692-364l188 188-56 56ZM397-400l-63-208-52 148H80v-60h160l66-190h60l61 204 43-134h60l60 120h30v60h-67l-47-94-50 154h-59Z" />
+source/android/app/src/main/res/drawable/ic_menu_games.xml:4:    <path android:fillColor="#FFFFFFFF"
+source/android/app/src/main/res/drawable/ic_menu_games.xml:6:    <path android:fillColor="#FFFFFFFF"
+source/android/app/src/main/res/drawable/ic_launcher_background.xml:11:        android:fillColor="#FF2E3947"
+source/android/app/src/main/res/drawable/ic_menu_stats.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M480-316.5q38-.5 56-27.5l224-336-336 224q-27 18-28.5 55t22.5 61q24 24 62 23.5Zm0-483.5q59 0 113.5 16.5T696-734l-76 48q-33-17-68.5-25.5T480-720q-133 0-226.5 93.5T160-400q0 42 11.5 83t32.5 77h552q23-38 33.5-79t10.5-85q0-36-8.5-70T766-540l48-76q30 47 47.5 100T880-406q1 57-13 109t-41 99q-11 18-30 28t-40 10H204q-21 0-40-10t-30-28q-26-45-40-95.5T80-400q0-83 31.5-155.5t86-127Q252-737 325-768.5T480-800Zm7 313Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:16:        <path android:fillColor="#FFF3F0E9" android:pathData="M32.83,48.78 27.97,43.73 16.24,30.83 11.49,26.14 10.17,25.02 9.31,24.72 8.2,24.84 7.27,25.48 6.82,26.26 6.73,27.39 9.38,35.1 11.07,41.39 12.34,48.46 12.7,54 12.34,59.54 11.07,66.61 9.38,72.9 6.73,80.61 6.9,81.95 7.6,82.83 8.64,83.27 9.75,83.17 10.53,82.71 12.41,81 17.17,76.17 27.97,64.27 32.83,59.22 33.64,61.49 35.21,64.72 37.07,67.59 39.34,70.33 42.01,72.87 46.28,75.95 49.59,77.72 54.24,79.52 55.15,82.22 56.69,85.37 58.61,88.15 60.9,90.52 64.35,92.92 67.45,94.27 69.57,94.84 71.78,95.19 74.13,95.3 75.21,95.08 77.66,94.08 78.69,93.38 79.83,92.26 80.58,91.19 81.2,89.85 81.65,87.28 81.43,85.16 80.74,83.5 79.24,82.45 75.53,80.43 80.27,79.25 84.94,77.46 89.19,75.13 92.97,72.27 96.25,68.92 98.99,65.1 101.46,60.11 101.95,58.47 102.3,56.33 102.42,54.03 102.3,51.67 101.93,49.45 101.3,47.51 99.77,44.28 98.14,41.58 96.25,39.08 94.12,36.79 90.41,33.7 87.73,31.98 84.85,30.5 81.78,29.25 78.63,28.27 75.22,27.51 72.18,27.06 83.15,22.99 84.07,22 84.42,20.02 84.29,18.29 83.68,16.35 82.83,14.89 81.3,13.23 79.53,11.97 77.3,10.91 75.55,10.36 72.87,9.87 70.04,9.7 68.57,9.86 66.02,10.37 63.66,11.08 61.41,12.02 59.29,13.18 57.31,14.56 55.48,16.14 53.84,17.92 52.46,19.78 50.67,23.07 49.4,26.73 48.72,30.72 46.28,32.05 43.31,34.08 40.59,36.41 38.25,38.91 35.14,43.41 33.64,46.51 32.83,48.78Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:17:        <path android:fillColor="#FFEC2A6E" android:pathData="M12.31,75.91 26.3,60.62 32.93,54 26.3,47.38 12.31,32.09 14.15,38.38 15.35,43.8 16.13,49.05 16.4,53.98 16.13,58.95 15.35,64.2 14.15,69.62 12.31,75.91Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:18:        <path android:fillColor="#FFEC2A6E" android:pathData="M52.51,30.11 54.52,30.51 57.52,30.6 61.51,28.02 66.94,25.29 73.08,22.72 80.72,19.95 80.66,19.01 80.3,17.84 79.27,16.4 77.61,15.13 75.33,14.15 73.24,13.65 70.85,13.42 69.06,13.53 66.96,13.94 64,14.92 61.27,16.31 59.62,17.45 57.39,19.48 56.1,21.03 54.48,23.66 53.63,25.6 52.98,27.7 52.51,30.11Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:19:        <path android:fillColor="#FFEC2A6E" android:pathData="M58.07,79.4 59.39,82.62 61.44,85.76 63.98,88.26 66.94,90.09 70.3,91.21 73.86,91.6 76.07,90.71 76.82,90.08 77.5,89.12 77.94,87.47 77.8,85.91 73.79,83.7 69.45,81.82 65.37,80.5 61.69,79.72 58.07,79.4Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:20:        <path android:fillColor="#FF17202E" android:pathData="M34.61,54 35.73,58.79 37.7,63.23 40.44,67.19 42.64,69.54 45.11,71.65 47.83,73.5 50.77,75.07 55.54,76.89 60.64,78.01 66,78.4 71.31,78.13 74.66,77.65 77.84,76.94 80.85,76 83.68,74.85 86.32,73.48 88.77,71.91 91.02,70.13 93.06,68.16 94.88,65.99 96.48,63.64 97.85,61.1 98.89,58.67 99.36,56.47 99.52,54 99.36,51.53 98.89,49.33 97.85,46.9 96.48,44.36 94.88,42.01 93.06,39.84 91.02,37.87 88.77,36.09 86.32,34.52 83.68,33.15 80.85,32 77.84,31.06 74.66,30.35 71.31,29.87 66,29.6 60.64,29.99 55.54,31.11 50.77,32.93 47.83,34.5 45.11,36.35 42.64,38.46 40.44,40.81 37.7,44.77 35.73,49.21 34.61,54Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:21:        <path android:fillColor="#FFC81F5B" android:pathData="M38,57 40.84,58.88 43.77,60.36 46.74,61.43 50.62,62.25 54.3,62.36 56.83,61.97 59.08,61.18 61,60 58.81,58.56 56.42,57.38 52.97,56.22 50.25,55.69 46.5,55.44 43.65,55.62 40.8,56.14 38,57Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:22:        <path android:fillColor="#FFF3F0E9" android:pathData="M100,54 90,50.2 90,57.8 100,54Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:23:        <path android:fillColor="#FF4FB3A6" android:pathData="M52.5,49.5 52.5,58.5 61.5,58.5 61.5,49.5 52.5,49.5Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:24:        <path android:fillColor="#FF17202E" android:pathData="M54.6,51.6 54.6,56.4 59.4,56.4 59.4,51.6 54.6,51.6Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:25:        <path android:fillColor="#FF4FB3A6" android:pathData="M38,53 50,53 50,55 38,55 38,53Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:26:        <path android:fillColor="#FF4FB3A6" android:pathData="M61.5,53 78,53 78,55 61.5,55 61.5,53Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:27:        <path android:fillColor="#FF4FB3A6" android:pathData="M44.5,44.5 47.5,44.5 47.5,47.5 44.5,47.5 44.5,44.5Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:28:        <path android:fillColor="#FF4FB3A6" android:pathData="M44.8,47.5 46.2,47.5 46.2,53 44.8,53 44.8,47.5Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:29:        <path android:fillColor="#FF4FB3A6" android:pathData="M41,44.8 44.8,44.8 44.8,46.2 41,46.2 41,44.8Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:30:        <path android:fillColor="#FF4FB3A6" android:pathData="M51.5,57.5 53.3,57.5 58.5,67.5 56.7,67.5 51.5,57.5Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:31:        <path android:fillColor="#FFF3F0E9" android:pathData="M91.9,52.75 91.9,55.25 91.13,57.63 89.66,59.66 87.63,61.13 85.25,61.9 84,62 82.75,61.9 80.37,61.13 78.34,59.66 76.87,57.63 76.1,55.25 76,54 76.1,52.75 76.87,50.37 78.34,48.34 80.37,46.87 81.53,46.39 84,46 85.25,46.1 87.63,46.87 89.66,48.34 91.13,50.37 91.9,52.75Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:32:        <path android:fillColor="#FF17202E" android:pathData="M89.53,53.12 89.53,54.88 88.99,56.54 87.96,57.96 87.29,58.53 85.73,59.33 84,59.6 82.27,59.33 81.46,58.99 80.04,57.96 79.01,56.54 78.47,54.88 78.4,54 78.47,53.12 79.01,51.46 80.04,50.04 80.71,49.47 82.27,48.67 84,48.4 85.73,48.67 86.54,49.01 87.96,50.04 88.99,51.46 89.53,53.12Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:33:        <path android:fillColor="#FF4FB3A6" android:pathData="M87.3,54 86.94,55.5 86.33,56.33 85.5,56.94 84,57.3 82.5,56.94 81.67,56.33 81.06,55.5 80.7,54 81.06,52.5 81.67,51.67 82.5,51.06 84,50.7 85.5,51.06 86.33,51.67 86.94,52.5 87.3,54Z" />
+source/android/app/src/main/res/drawable/ic_launcher_foreground.xml:34:        <path android:fillColor="#FF0E1A22" android:pathData="M85.5,54 85.06,55.06 84,55.5 82.94,55.06 82.5,54 82.94,52.94 84,52.5 85.06,52.94 85.5,54Z" />
+source/android/app/src/main/res/drawable/ic_menu_log.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" />
+source/android/app/src/main/res/drawable/ic_menu_joystick.xml:5:        android:fillColor="#00000000"
+source/android/app/src/main/res/drawable/ic_menu_joystick.xml:7:    <path android:fillColor="#FFFFFFFF"
+source/android/app/src/main/res/drawable/ic_menu_pad.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M160-240q-33 0-56.5-23.5T80-320v-320q0-33 23.5-56.5T160-720h640q33 0 56.5 23.5T880-640v320q0 33-23.5 56.5T800-240H160Zm0-80h640v-320H160v320Zm120-40h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80Zm342.5-17.5Q640-395 640-420t-17.5-42.5Q605-480 580-480t-42.5 17.5Q520-445 520-420t17.5 42.5Q555-360 580-360t42.5-17.5Zm120-120Q760-515 760-540t-17.5-42.5Q725-600 700-600t-42.5 17.5Q640-565 640-540t17.5 42.5Q675-480 700-480t42.5-17.5ZM160-320v-320 320Z" />
+source/android/app/src/main/res/drawable/ic_menu_align_top.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M160-760v-80h640v80H160Zm280 640v-408L336-424l-56-56 200-200 200 200-56 56-104-104v408h-80Z" />
+source/android/app/src/main/res/drawable/ic_menu_align_bottom.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M160-120v-80h640v80H160Zm320-160L280-480l56-56 104 104v-408h80v408l104-104 56 56-200 200Z" />
+source/android/app/src/main/res/drawable/ic_add.xml:4:    <path android:fillColor="#FFE8DCC8" android:pathData="M450,180h60v600h-60z" />
+source/android/app/src/main/res/drawable/ic_add.xml:5:    <path android:fillColor="#FFE8DCC8" android:pathData="M180,450h600v60h-600z" />
+source/android/app/src/main/res/drawable/ic_menu_exit.xml:5:        <path android:fillColor="#FFFFFFFF" android:pathData="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/ShaderSlots.kt:22: *   192 vectors of table plus that reserve fit 256, and every one-table program links at 192.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:8: * multiplier for the touch unit and, per control, an offset in raw `u` units plus a scale on the
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:9: * control's size. A default layout is exactly the stock pad.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:21:    /** Per-control offset from the stock position, in raw `u` units. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:22:    val offsetX = FloatArray(OnScreenPadModel.CONTROLS)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:23:    val offsetY = FloatArray(OnScreenPadModel.CONTROLS)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:25:    /** Per-control multiplier on the control's extent (radius, or pill half extents). */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:26:    val scale = FloatArray(OnScreenPadModel.CONTROLS) { 1f }
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:30:        for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:31:            if (offsetX[control] != 0f || offsetY[control] != 0f || scale[control] != 1f) return false
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:38:        offsetX.fill(0f)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:39:        offsetY.fill(0f)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:40:        scale.fill(1f)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:43:    /** A deep copy (fresh arrays), for the editor's undo snapshot. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:55:     * Only non-default entries are emitted: `global` when it is not 1.0, then a `controls` object
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:56:     * holding the controls with a non-zero offset or a non-unit scale. A default layout is exactly
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:63:        val controls = JSONObject()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:64:        for (control in 0 until OnScreenPadModel.CONTROLS) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:65:            val dx = offsetX[control]
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:66:            val dy = offsetY[control]
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:67:            val s = scale[control]
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:73:            controls.put(nameOf(control), entry)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:75:        if (controls.length() > 0) root.put("controls", controls)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:91:        /** Control names, indexed by control id ([OnScreenPadModel.LEFT_STICK] … `HOME`). */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:97:        fun nameOf(control: Int): String = NAMES.getOrElse(control) { "" }
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:99:        /** -1 when [name] is not one of the known controls (a hand-edited file may carry anything). */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:100:        fun controlOf(name: String): Int = NAMES.indexOf(name)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:105:         * control names, unknown fields and missing fields are ignored, never fatal.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:117:            val controls = root.optJSONObject("controls") ?: return layout
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:118:            val names = controls.keys()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:121:                val control = controlOf(name)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:122:                if (control == -1) continue
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:123:                val entry = controls.optJSONObject(name) ?: continue
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:124:                layout.offsetX[control] = entry.optDouble("dx", 0.0).toFloat()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:125:                layout.offsetY[control] = entry.optDouble("dy", 0.0).toFloat()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/PadLayout.kt:126:                layout.scale[control] = entry.optDouble("scale", 1.0).toFloat()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/ViewAlign.kt:13:        /** The default, and the fallback for a pref written by an older or hand-edited build. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:27: * right edge carrying the overlay switch, the frame-readout switch, the frame-rate switch (with the
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:31: * the control at the right edge, and the whole row is the target.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:34: * Activity, so this view is only told what to show ([setHideWithExternalInput], [setStatsEnabled],
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:42:    /** A tap on the overlay switch (never fired by [setHideWithExternalInput]). */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:43:    var onHideWithExternalInput: ((Boolean) -> Unit)? = null
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:52:    var onEditButtonMappings: (() -> Unit)? = null
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:135:    private val hideToggle = Switch(context)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:164:    /** The icon and control colour on a row, and the ripple the whole row shows. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:168:    private var hideWithExternalInput = true
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:187:    fun setHideWithExternalInput(value: Boolean) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:188:        hideWithExternalInput = value
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:266:         * was unreachable. `fillViewport` keeps the blank-space filler that pushes the status block to
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:267:         * the bottom when the whole menu does fit, and scrolls when it does not. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:269:            isFillViewport = true
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:294:        hideToggle.setOnCheckedChangeListener { _, checked ->
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:295:            if (!syncing) onHideWithExternalInput?.invoke(checked)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:297:        addRow(panel, R.drawable.ic_menu_pad, "Hide pad with external input", hideToggle) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:298:            hideToggle.isChecked = !hideToggle.isChecked
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:309:            text = "PREMIUM TOUCH CONTROLS"
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:341:        addRow(panel, R.drawable.ic_menu_pad, "Remap touch buttons", null) { onEditButtonMappings?.invoke() }
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:349:        addRow(panel, R.drawable.ic_menu_pad, "Restore default control layout", null) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:393:        addRow(panel, R.drawable.ic_menu_games, "Display: Fit (no crop)", null) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:394:            onScreenMode?.invoke("fit")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:396:        addRow(panel, R.drawable.ic_menu_games, "Display: Fill (crop sides)", null) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:397:            onScreenMode?.invoke("fill")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:399:        addRow(panel, R.drawable.ic_menu_games, "Display: Stretch (distorts)", null) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:400:            onScreenMode?.invoke("stretch")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:541:     * The row background: a rounded ripple over the whole row, filled with a dim pill when the row is
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:543:     * colour on purpose - a mask is read by alpha, and an unfilled GradientDrawable is transparent.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:545:    private fun rowBackground(filled: Boolean): Drawable = PortStyle.row(context, filled)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:549:     * label beside it on a single line, the control (if any) pinned to the right edge, and the whole
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:552:     * (the picture-position group fills the current one).
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:555:        panel: LinearLayout, iconRes: Int, label: String, control: View?,
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:569:                    scaleType = ImageView.ScaleType.FIT_CENTER
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:583:            if (control != null) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:584:                /* The row is the hit target, so the control must not swallow the touch. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:585:                control.isClickable = false
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:586:                control.isFocusable = false
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:588:                    control,
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/SideMenuView.kt:633:        hideToggle.isChecked = hideWithExternalInput
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/GameAssetHandler.kt:99:                 * says why - the game's bytes on this device do not carry what that case edits, which is
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/GameAssetHandler.kt:100:                 * itself worth knowing (a different build, a file a player edited, a copy that moved
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/GameAssetHandler.kt:153:                Log.w(TAG, "not caching $rel: the rewritten set no longer fits the rewrite cache")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/GameAssetHandler.kt:248:         * player edited) is served as it came; a *partial* match is served as well, and its count says
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/GameAssetHandler.kt:363:     * [ShaderVariants] expands and edits for the self-test. The port's own rewrites are deliberately
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:20: * [applyOverlay], plus the layout editor: the [editing] mode, the [layout] being edited, and the
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:23: * This View is a control surface, not a clickable widget, hence the accessibility lint suppression.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:30:    private val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:40:        applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:44:    /** The layout being edited and drawn; assigning it re-places every control. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:53:    var controlsOpacity: Float = 0.75f
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:59:    fun remapButton(control: Int, target: Int): Boolean {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:60:        val changed = model.remapButton(control, target)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:73:    fun mappingFor(control: Int): Int = model.mappingFor(control)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:108:    /** True while the layout editor is open. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:109:    val editing: Boolean get() = model.editing
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:111:    /** The RESET snapshot: what UNDO restores. Cleared on commit and on entering the editor. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:114:    /** Pointer id → control being moved / resized, so a MOVE can route each finger. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:120:     * PAD/HIDE pill. Assigning it re-applies the overlay contribution, so a pad started hidden never
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:128:            applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:143:    /** True while a controller, mouse or keyboard is being used: the controls hide until it goes quiet. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:148:     * Whether external input in use hides the overlay at all; the side menu's switch. Off leaves the
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:149:     * controls and the pill row drawn — and the overlay publishing — while a controller, mouse or
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:152:    var hideWithExternalInput = true
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:156:            applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:169:        applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:177:    /** A controller, mouse or keyboard event: hide the controls now, show them once it has gone quiet. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:179:        if (model.editing) return
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:182:            applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:190:        /* The WebView is rebuilt on a renderer crash; save an edit in progress first. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:191:        commitIfEditing()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:197:     * Saves the edited layout and leaves the editor. False when not editing. Fires
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:199:     * prefs copy after a hand-edited `pad-layout.json`.
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:201:    fun commitIfEditing(): Boolean {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:202:        if (!model.editing) return false
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:204:        model.setEditing(false)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:208:        applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:213:    private fun setEditing(editing: Boolean) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:215:        /* A control held when the editor opens must not stay held when it closes. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:216:        if (editing) model.releaseAll()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:217:        model.setEditing(editing)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:218:        applyOverlay()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:222:    /** Whether external input is hiding the overlay right now. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:223:    private fun externalInputHides(): Boolean = hideWithExternalInput && externalInputInUse
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:225:    private fun controlsDrawn(): Boolean = padEnabled && !externalInputHides()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:228:     * Whether the pill row is drawn and can be hit. It hides with the controls while a controller,
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:231:     * those events while the editor is open, so editing never hides the row that closes it —
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:235:    private fun pillsDrawn(): Boolean = !externalInputHides()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:237:    /** Whether the overlay is a pad right now: the controls are drawn and no editor is open. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:238:    private fun overlayActive(): Boolean = controlsDrawn() && !model.editing
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:241:     * The one place the overlay contributes to the gamepad. Disabling clears what the overlay last
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:245:    private fun applyOverlay() {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:246:        val active = overlayActive()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:247:        Gamepad.setOverlayEnabled(active)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:265:                } else if (model.editing && model.handleHit(x, y) && model.selected != OnScreenPadModel.NO_CONTROL) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:268:                } else if (model.editing && model.controlAt(x, y) != OnScreenPadModel.NO_CONTROL) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:269:                    val control = model.controlAt(x, y)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:270:                    model.beginDrag(control, x, y)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:271:                    dragPointer[id] = control
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:272:                } else if (overlayActive()) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:273:                    /* While the controls are drawn the pad consumes the whole gesture: the page has
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:279:                consumed = consumed || model.editing || controlsDrawn() || pill != OnScreenPadModel.PILL_NONE
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:280:                if (model.editing || pill != OnScreenPadModel.PILL_NONE) invalidate()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:286:                if (model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:297:                } else if (controlsDrawn()) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:308:                if (model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:315:                    consumed = controlsDrawn()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:320:                if (model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:336:            OnScreenPadModel.PILL_A -> if (model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:356:                if (model.editing) model.addGlobal(-PadLayout.GLOBAL_STEP)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:359:                if (model.editing) model.addGlobal(PadLayout.GLOBAL_STEP)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:362:                if (model.editing) commitIfEditing() else setEditing(true)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:376:            Gamepad.overlayAxes(lastAxes[0], lastAxes[1], lastAxes[2], lastAxes[3])
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:381:                Gamepad.overlayButton(button, lastButtons[button])
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:394:        val drawn = controlsDrawn()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:395:        if (drawn || model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:398:                ((if (model.editing) 1f else controlsOpacity) * 255f).toInt()
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:419:            drawControlPill(canvas, OnScreenPadModel.L1, "L1")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:420:            drawControlPill(canvas, OnScreenPadModel.L2, "L2")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:421:            drawControlPill(canvas, OnScreenPadModel.R1, "R1")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:422:            drawControlPill(canvas, OnScreenPadModel.R2, "R2")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:423:            drawControlPill(canvas, OnScreenPadModel.SELECT, "SEL")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:424:            drawControlPill(canvas, OnScreenPadModel.START, "START")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:425:            drawControlPill(canvas, OnScreenPadModel.HOME, "HOME")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:428:        if (model.editing) drawEditorChrome(canvas)
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:434:            if (model.padHidden && !model.editing) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:441:                drawRowPill(canvas, OnScreenPadModel.PILL_B, if (model.editing) "DONE" else "EDIT")
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:447:        model.editing -> if (undo != null) "UNDO" else "RESET"
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:448:        else -> "HIDE"
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:461:    /** The selected control's outline, its corner handle, and the hint line. */
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:462:    private fun drawEditorChrome(canvas: Canvas) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:464:        if (selected != OnScreenPadModel.NO_CONTROL) {
+source/android/app/src/main/java/io/github/moronigranja/alabasterdawn/OnScreenPadView.kt:483:            fill.color = COLOR_PRESSED
