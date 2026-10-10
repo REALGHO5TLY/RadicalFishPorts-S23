@@ -16,17 +16,27 @@ jobs:
       - name: Checkout S23 repository
         uses: actions/checkout@v4
       - name: Verify and unpack complete premium source
+        shell: bash
         run: |
-          test -s RadicalFish_S23_Fullscreen_Modes_Source.zip || { echo "Upload RadicalFish_S23_Fullscreen_Modes_Source.zip to repository root first"; exit 1; }
-          unzip -t RadicalFish_S23_Fullscreen_Modes_Source.zip
-          mkdir -p source
-          unzip -q RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
-          echo 'Unpacked top-level files:'
-          ls -la source
-          echo 'Android files:'
-          ls -la source/android || true
-          test -f source/android/gradlew
-          test -f source/android/app/build.gradle.kts
+          set -o pipefail
+          {
+            echo "Repository files:"
+            ls -lah
+            echo "ZIP identification:"
+            file RadicalFish_S23_Fullscreen_Modes_Source.zip
+            echo "ZIP file listing:"
+            unzip -Z1 RadicalFish_S23_Fullscreen_Modes_Source.zip | head -n 35
+            echo "ZIP integrity:"
+            unzip -tq RadicalFish_S23_Fullscreen_Modes_Source.zip
+            mkdir -p source
+            unzip -oq RadicalFish_S23_Fullscreen_Modes_Source.zip -d source
+            echo "Extracted source:"
+            ls -lah source/
+            echo "Android project:"
+            ls -lah source/android/
+            test -f source/android/gradlew
+            test -f source/android/app/build.gradle.kts
+          } 2>&1 | tee "$GITHUB_WORKSPACE/preparation.log"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -44,10 +54,13 @@ jobs:
         if: failure()
         run: |
           mkdir -p build-diagnostics
-          if [ -f android-build.log ]; then
-            tail -n 500 android-build.log > build-diagnostics/latest.txt
+          if [ -f preparation.log ]; then
+            cat preparation.log > build-diagnostics/latest.txt
           else
-            printf 'Build failed before Gradle started. Inspect verification step and ZIP structure.\n' > build-diagnostics/latest.txt
+            printf 'Preparation step did not run.\\n' > build-diagnostics/latest.txt
+          fi
+          if [ -f android-build.log ]; then
+            tail -n 500 android-build.log >> build-diagnostics/latest.txt
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
