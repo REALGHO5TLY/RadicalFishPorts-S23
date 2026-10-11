@@ -72,6 +72,39 @@ jobs:
           chmod +x gradlew
           ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/original-build.log"
 
+      - name: Compile override DEX for the exact OBB APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=original/app/build/tmp/kotlin-classes/debug/de/radicalfishgames/crosscode
+          test -d "$BASE"
+          mkdir -p override-classes/de/radicalfishgames/crosscode/{overlay,features}
+          count=0
+          for prefix in ControlView PremiumControls; do
+            for cls in "$BASE/overlay/$prefix"*.class; do
+              if [ -f "$cls" ]; then cp "$cls" override-classes/de/radicalfishgames/crosscode/overlay/; count=$((count+1)); fi
+            done
+          done
+          for cls in "$BASE/features/VirtualControllerFeature"*.class; do
+            if [ -f "$cls" ]; then cp "$cls" override-classes/de/radicalfishgames/crosscode/features/; count=$((count+1)); fi
+          done
+          echo "Override classes: $count"
+          find override-classes -name '*.class' -print
+          test "$count" -ge 3
+          mkdir -p dex-out
+          d8_bin=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -type f -name d8 -print -quit)
+          test -n "$d8_bin"
+          mapfile -t files < <(find override-classes -type f -name '*.class')
+          "$d8_bin" --min-api 21 --lib "$ANDROID_HOME/platforms/android-29/android.jar" --output dex-out "${files[@]}"
+          test -s dex-out/classes.dex
+
+      - name: Upload controls-only DEX patch
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CrossCode-Exact-OBB-Controls-Patch-Dex
+          path: dex-out/classes.dex
+          if-no-files-found: error
       - name: Upload ORIGINAL-port premium APK
         if: success()
         uses: actions/upload-artifact@v4
