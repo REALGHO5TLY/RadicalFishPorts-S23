@@ -35,11 +35,11 @@ jobs:
                     print('HTML',line[:360].strip())
               if 'mobdisc.com' in url:
                 idx=html.find('https://pdalife.com/api/getapp/46435/')
-                print('PAGE-SCRIPT',html[max(0,idx-800):idx+1000])
+                print('PAGE-SCRIPT',html[max(0,idx-1000):idx+1700])
                 jsurl='https://mobdisc.com/js/wp.js?_=1604952904'
                 try:
                   js=urllib.request.urlopen(urllib.request.Request(jsurl,headers={'User-Agent':'Mozilla/5.0'}),timeout=10).read().decode('utf-8','replace')
-                  print('WP-JS-LENGTH',len(js))
+                  print('WP-JS-LENGTH',len(js),'SCRIPT-CONTENT',js[:10000])
                   for term in ['js-dwn-btn', 'download.html', '/download/', 'captcha', 'grecaptcha', 'file']:
                     at=js.find(term)
                     print('SCRIPT',term,at,js[max(0,at-220):at+700] if at>=0 else '')
