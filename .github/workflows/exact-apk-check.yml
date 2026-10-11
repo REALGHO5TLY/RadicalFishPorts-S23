@@ -1,0 +1,38 @@
+name: Verify public mirror of uploaded CrossCode APK
+on:
+  push:
+    branches: [crosscode-exact-apk]
+    paths: [ '.github/workflows/exact-apk-check.yml' ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve exact original APK and check SHA256
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request,urllib.parse,re,hashlib,time
+          from html.parser import HTMLParser
+          urls=[
+            'https://mobdisc.com/dw7f5a4d9d/download.html?lang=en',
+            'https://pdalife.com/crosscode-mobile-android-a46435.html'
+          ]
+          for url in urls:
+            print('PAGE',url,flush=True)
+            try:
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36'})
+              with urllib.request.urlopen(req,timeout=15) as response:
+                html=response.read(250000).decode('utf-8','replace')
+              for snippet in re.findall(r'.{0,180}(?:CrossCode-Mobile-v1-4-2-2|/dw7f5a4d9d|download\\.apk|downloadFile|downloadfile|\\.apk|Download \\[5.70|href=[^>]{0,100}download).{0,240}',html,re.I):
+                print('MATCH',snippet[:480].replace('\\n',' '))
+              for href in re.findall(r'href=["\\']([^"\\']+)["\\']',html):
+                if any(x in href.lower() for x in ['.apk','/dl/','/download/','/dw7f5a4d9d','/file/']):
+                  print('LINK',urllib.parse.urljoin(url,href)[:250])
+            except Exception as e: print('ERROR',type(e).__name__,str(e)[:200])
+          PY
