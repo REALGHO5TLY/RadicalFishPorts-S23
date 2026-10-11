@@ -58,6 +58,19 @@ patch(feature,
         de.radicalfishgames.crosscode.overlay.PremiumControls.install(hostActivity)""")
 
 # Fix minimum supported S23 Ultra build SDK only if requested by Gradle.
+# The 2019 CreditZ view library depends on the JCenter-only legacy Flexbox
+# coordinate. Substitute the AndroidX-published compatible Flexbox group.
+gradle_path = root / "app/build.gradle"
+gradle_text = gradle_path.read_text()
+legacy = "    implementation 'com.gitlab.Namnodorel.Creditz:views:58b92b387d2c57379c06110b28cb65e79b7bcde9'"
+assert legacy in gradle_text, "Original CreditZ dependency changed"
+gradle_text = gradle_text.replace(legacy,
+    """    implementation('com.gitlab.Namnodorel.Creditz:views:58b92b387d2c57379c06110b28cb65e79b7bcde9') {
+        exclude group: 'com.google.android', module: 'flexbox'
+    }
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'""")
+gradle_path.write_text(gradle_text)
+
 # IMPORTANT: retain the user's exact original Android application ID and game data path.
 # Do not add Steam, cloud authentication or alternative launchers.
 assert 'applicationId "de.radicalfishgames.crosscode"' in (root / "app/build.gradle").read_text()
