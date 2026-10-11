@@ -33,6 +33,17 @@ jobs:
                 for line in html.splitlines():
                   if any(q in line.lower() for q in ['<script', 'js-dwn-btn', 'data-url', 'download', 'src=', '/api/', 'ajax']):
                     print('HTML',line[:360].strip())
+              if 'mobdisc.com' in url:
+                idx=html.find('https://pdalife.com/api/getapp/46435/')
+                print('PAGE-SCRIPT',html[max(0,idx-800):idx+1000])
+                jsurl='https://mobdisc.com/js/wp.js?_=1604952904'
+                try:
+                  js=urllib.request.urlopen(urllib.request.Request(jsurl,headers={'User-Agent':'Mozilla/5.0'}),timeout=10).read().decode('utf-8','replace')
+                  print('WP-JS-LENGTH',len(js))
+                  for term in ['js-dwn-btn', 'download.html', '/download/', 'captcha', 'grecaptcha', 'file']:
+                    at=js.find(term)
+                    print('SCRIPT',term,at,js[max(0,at-220):at+700] if at>=0 else '')
+                except Exception as e: print('JSERR',str(e))
               for snippet in re.findall(r'.{0,180}(?:CrossCode-Mobile-v1-4-2-2|/dw7f5a4d9d|download\\.apk|downloadFile|downloadfile|\\.apk|Download \\[5.70|href=[^>]{0,100}download).{0,240}',html,re.I):
                 print('MATCH',snippet[:480].replace('\\n',' '))
               for href in re.findall(r"""href=["']([^"']+)["']""",html):
