@@ -186,8 +186,8 @@ object PremiumControls {
         val lp = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         ).apply {
-            topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-            startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            topToTop = androidx.constraintlayout.widget.ConstraintSet.PARENT_ID
+            startToStart = androidx.constraintlayout.widget.ConstraintSet.PARENT_ID
             topMargin = dp(activity, 10)
             marginStart = dp(activity, 12)
         }
