@@ -103,9 +103,10 @@ jobs:
         run: |
           set -euo pipefail
           base64 -w0 dex-out/classes.dex > crosscode-original/controls-override.dex.b64
+          xz -9e -c dex-out/classes.dex | base64 -w0 > crosscode-original/controls-override.dex.xz.b64
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add crosscode-original/controls-override.dex.b64
+          git add crosscode-original/controls-override.dex.b64 crosscode-original/controls-override.dex.xz.b64
           git commit -m 'Publish controls-only DEX patch for original OBB APK' || true
           git push origin HEAD:crosscode-original-controls || true
       - name: Upload controls-only DEX patch
