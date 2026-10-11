@@ -58,6 +58,12 @@ patch(feature,
         de.radicalfishgames.crosscode.overlay.PremiumControls.install(hostActivity)""")
 
 # Fix minimum supported S23 Ultra build SDK only if requested by Gradle.
+# Install alongside the user's existing CrossAndroid APK, never silently overwrite it.
+build = root / "app/build.gradle"
+patch(build,
+      'applicationId "de.radicalfishgames.crosscode"',
+      'applicationId "de.radicalfishgames.crosscode.premium"')
+
 print("CrossCode premium controls applied:")
 print("  - Existing combat/menu bindings unchanged")
 print("  - Premium glass UI and separate COMBAT/MENU saved layouts")
