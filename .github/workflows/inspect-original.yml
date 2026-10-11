@@ -1,0 +1,35 @@
+name: Inspect Original CrossAndroid Source
+on:
+  push:
+    branches: [crosscode-original-controls]
+    paths: [ '.github/workflows/inspect-original.yml' ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch ORIGINAL CrossAndroid not Steam fork
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://gitlab.com/Namnodorel/crossandroid.git upstream
+          echo "=== Commit ==="
+          git -C upstream log -1 --format="%H %ad %s"
+          echo "=== Build files ==="
+          ls -la upstream | head -35
+          echo "=== Game package sources ==="
+          find upstream/app/src/main/java -type f | grep -E '(ControlView|VirtualControllerFeature|GameActivity|Circle|Swipe|CombatLayout|MenuLayout)' | sort
+          echo "=== Manifest and gradle basics ==="
+          grep -nE 'applicationId|versionCode|versionName|compileSdk|targetSdk' upstream/app/build.gradle*
+          echo "=== Patch anchors ==="
+          grep -nE 'onDraw|onTouchEvent|pointerIndex|controller.bindControls|isControllerReady|initializeLayouts|overlay|register' \
+            upstream/app/src/main/java/de/radicalfishgames/crosscode/overlay/ControlView.kt \
+            upstream/app/src/main/java/de/radicalfishgames/crosscode/features/VirtualControllerFeature.kt || true
+          echo "=== Layout XML controls ==="
+          grep -E 'android:id=' upstream/app/src/main/res/layout/{combat_layout,menu_layout,direct_layout}.xml || true
+          echo "=== Activity and manifest ==="
+          grep -nE 'LaunchActivity|GameActivity|MAIN|LAUNCHER|applicationId|control_container' upstream/app/src/main/AndroidManifest.xml upstream/app/src/main/res/layout/activity_game.xml || true
