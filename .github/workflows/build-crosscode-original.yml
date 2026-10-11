@@ -33,6 +33,20 @@ jobs:
           python3 crosscode-original/apply.py original
           grep -n 'PremiumControls' original/app/src/main/java/de/radicalfishgames/crosscode/{overlay/ControlView.kt,features/VirtualControllerFeature.kt}
 
+      - name: Package modified original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd original
+          zip -qr "$GITHUB_WORKSPACE/CrossCode-Original-Premium-Source.zip" . -x ".git/*" ".gradle/*"
+
+      - name: Upload full modified original source
+        uses: actions/upload-artifact@v4
+        with:
+          name: CrossCode-Original-Premium-Source
+          path: CrossCode-Original-Premium-Source.zip
+          if-no-files-found: error
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
