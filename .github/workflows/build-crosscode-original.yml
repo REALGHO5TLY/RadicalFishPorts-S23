@@ -1,0 +1,70 @@
+name: Build Original CrossAndroid Premium Controls
+on:
+  push:
+    branches: [crosscode-original-controls]
+    paths:
+      - 'crosscode-original/**'
+      - '.github/workflows/build-crosscode-original.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone ORIGINAL CrossAndroid port
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://gitlab.com/Namnodorel/crossandroid.git original
+          git -C original checkout --detach 6b5abdbc4e3d193a3cd4024d30b22b60e5a480b0
+          echo "Verified source: original CrossAndroid, NOT CrossDroid"
+          grep 'applicationId "de.radicalfishgames.crosscode"' original/app/build.gradle
+          grep -n 'LaunchActivity' original/app/src/main/AndroidManifest.xml
+          ! grep -R -q 'SteamLoginActivity' original/app/src/main/
+
+      - name: Patch only original touch controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 crosscode-original/apply.py original
+          grep -n 'PremiumControls' original/app/src/main/java/de/radicalfishgames/crosscode/{overlay/ControlView.kt,features/VirtualControllerFeature.kt}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+      - name: Install original Android SDK 29
+        shell: bash
+        run: |
+          set -euo pipefail
+          manager=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)
+          yes | "$manager" --licenses > /dev/null || true
+          "$manager" --install "platforms;android-29" "build-tools;29.0.2"
+
+      - name: Compile original native port, premium controls
+        working-directory: original
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/original-build.log"
+
+      - name: Upload ORIGINAL-port premium APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CrossCode-Original-Premium-S23-debug
+          path: original/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Failure details
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Original-CrossCode-Build-Log
+          path: original-build.log
+          if-no-files-found: ignore
