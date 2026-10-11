@@ -19,6 +19,12 @@ jobs:
           git clone --depth 1 https://gitlab.com/Namnodorel/crossandroid.git upstream
           echo "=== Commit ==="
           git -C upstream log -1 --format="%H %ad %s"
+          echo "=== Build script ==="
+          cat upstream/app/build.gradle
+          echo "=== Root gradle ==="
+          cat upstream/build.gradle
+          echo "=== Wrapper version ==="
+          cat upstream/gradle/wrapper/gradle-wrapper.properties
           echo "=== Build files ==="
           ls -la upstream | head -35
           echo "=== Game package sources ==="
