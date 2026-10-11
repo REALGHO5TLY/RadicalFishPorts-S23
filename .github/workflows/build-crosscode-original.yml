@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
       - name: Install original Android SDK 29
         shell: bash
         run: |
@@ -44,6 +44,11 @@ jobs:
           manager=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager -print -quit)
           yes | "$manager" --licenses > /dev/null || true
           "$manager" --install "platforms;android-29" "build-tools;29.0.2"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
 
       - name: Compile original native port, premium controls
         working-directory: original
