@@ -31,7 +31,7 @@ jobs:
                 html=response.read(250000).decode('utf-8','replace')
               for snippet in re.findall(r'.{0,180}(?:CrossCode-Mobile-v1-4-2-2|/dw7f5a4d9d|download\\.apk|downloadFile|downloadfile|\\.apk|Download \\[5.70|href=[^>]{0,100}download).{0,240}',html,re.I):
                 print('MATCH',snippet[:480].replace('\\n',' '))
-              for href in re.findall(r'href=["\\']([^"\\']+)["\\']',html):
+              for href in re.findall(r"""href=["']([^"']+)["']""",html):
                 if any(x in href.lower() for x in ['.apk','/dl/','/download/','/dw7f5a4d9d','/file/']):
                   print('LINK',urllib.parse.urljoin(url,href)[:250])
             except Exception as e: print('ERROR',type(e).__name__,str(e)[:200])
